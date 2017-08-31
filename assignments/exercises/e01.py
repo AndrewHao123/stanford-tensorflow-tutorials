@@ -23,7 +23,24 @@ out = tf.cond(tf.greater(x, y), lambda: tf.add(x, y), lambda: tf.subtract(x, y))
 ###############################################################################
 
 # YOUR CODE
+import tensorflow as tf
 
+def f1():
+    return x+y
+    
+def f2():
+    return x-y
+    
+def f3():
+    return 0
+    
+x = tf.random_uniform([], minval = -1, maxval = 1, dtype = tf.float32)
+y = tf.random_uniform([], minval = -1, maxval = 1, dtype = tf.float32)
+
+out = tf.case({tf.less(x, y): f1, tf.greater(x, y): f2}, default=f3, exclusive=True)
+
+with tf.Session() as sess:
+        print (sess.run(out))
 ###############################################################################
 # 1c: Create the tensor x of the value [[0, -2, -1], [0, 1, 2]] 
 # and y as a tensor of zeros with the same shape as x.
